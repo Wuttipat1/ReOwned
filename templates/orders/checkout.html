@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Checkout — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container" style="max-width:700px;">
+    <h4 class="fw-bold mb-4">Checkout</h4>
+    <div class="row g-4">
+        <div class="col-md-7">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h6 class="fw-bold mb-3">Shipping Address</h6>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <textarea name="shipping_address" class="form-control" rows="4" placeholder="Enter your full shipping address..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-orange w-100 rounded-pill fw-bold py-2">Place Order</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <h6 class="fw-bold mb-3">Order Summary</h6>
+                {% for item in cart.items.all %}
+                <div class="d-flex justify-content-between mb-2 small">
+                    <span>{{ item.listing.title }}</span>
+                    <span>฿{{ item.subtotal }}</span>
+                </div>
+                {% endfor %}
+                <hr>
+                <div class="d-flex justify-content-between fw-bold">
+                    <span>Total</span>
+                    <span style="color:var(--teal);">฿{{ cart.total }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

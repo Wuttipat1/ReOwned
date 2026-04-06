@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RE-OWNED{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #1a9e8f;
+            --teal-dark: #147a6e;
+            --orange: #f47b20;
+            --orange-dark: #d4610a;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; }
+
+        /* NAVBAR */
+        .navbar { background: #fff; border-bottom: 2px solid var(--teal); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .navbar-brand { font-weight: 800; font-size: 1.4rem; color: var(--teal) !important; }
+        .navbar-brand span { color: var(--orange); }
+        .nav-link { color: #333 !important; font-weight: 500; }
+        .nav-link:hover { color: var(--teal) !important; }
+
+        /* SEARCH BAR */
+        .search-bar { background: var(--teal); padding: 16px 0; }
+        .search-bar .form-control { border-radius: 8px 0 0 8px; border: none; height: 44px; }
+        .search-bar .btn-search { background: var(--orange); color: #fff; border-radius: 0 8px 8px 0; height: 44px; border: none; font-weight: 600; padding: 0 24px; }
+        .search-bar .btn-search:hover { background: var(--orange-dark); }
+
+        /* BUTTONS */
+        .btn-teal { background: var(--teal); color: #fff; border: none; }
+        .btn-teal:hover { background: var(--teal-dark); color: #fff; }
+        .btn-orange { background: var(--orange); color: #fff; border: none; }
+        .btn-orange:hover { background: var(--orange-dark); color: #fff; }
+
+        /* CARDS */
+        .listing-card { border: none; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; }
+        .listing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+        .listing-card .card-img-top { height: 200px; object-fit: cover; }
+        .listing-card .badge-condition { background: #e8f5f3; color: var(--teal); font-size: 0.75rem; font-weight: 600; border-radius: 6px; padding: 3px 8px; }
+        .listing-card .price { color: var(--teal); font-weight: 800; font-size: 1.1rem; }
+        .listing-card .wishlist-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; color: #999; transition: 0.2s; }
+        .listing-card .wishlist-btn:hover, .listing-card .wishlist-btn.active { color: #e74c3c; }
+
+        /* CATEGORY CARDS */
+        .category-card { border-radius: 12px; overflow: hidden; text-align: center; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: 0.2s; cursor: pointer; }
+        .category-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+        .category-card .cat-icon { font-size: 2.5rem; color: var(--teal); padding: 20px 0 8px; }
+        .category-card .card-body { padding: 8px 16px 16px; font-weight: 600; color: #333; }
+
+        /* SECTION HEADERS */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-title { font-weight: 800; font-size: 1.3rem; color: #222; }
+        .see-all { color: var(--teal); font-weight: 600; text-decoration: none; }
+        .see-all:hover { color: var(--teal-dark); }
+
+        /* HERO BANNER */
+        .hero-banner { background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); color: #fff; border-radius: 16px; padding: 40px; text-align: center; }
+        .hero-banner h2 { font-weight: 900; font-size: 2rem; letter-spacing: -0.5px; }
+
+        /* SIDEBAR FILTERS */
+        .filter-sidebar { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+        .filter-sidebar h6 { font-weight: 700; color: #333; margin-bottom: 12px; border-bottom: 2px solid var(--teal); padding-bottom: 6px; }
+
+        /* FOOTER */
+        footer { background: #1a2a2a; color: #aaa; margin-top: 60px; padding: 40px 0 20px; }
+        footer h6 { color: #fff; font-weight: 700; margin-bottom: 16px; }
+        footer a { color: #aaa; text-decoration: none; }
+        footer a:hover { color: var(--orange); }
+
+        /* MESSAGES */
+        .messages-container { position: fixed; top: 80px; right: 20px; z-index: 9999; min-width: 300px; }
+
+        /* CART BADGE */
+        .cart-badge { background: var(--orange); color: #fff; font-size: 0.65rem; }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <i class="bi bi-recycle"></i> RE-<span>OWNED</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMain">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'listing_list' %}">All Listings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        {% for cat in all_categories %}
+                        <li><a class="dropdown-item" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link fw-bold" href="{% url 'create_listing' %}">Sell</a></li>
+            </ul>
+            <ul class="navbar-nav align-items-center gap-2">
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}"><i class="bi bi-person-circle"></i> {{ user.username }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'inbox' %}"><i class="bi bi-chat-dots"></i> Messages</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart' %}">
+                            <i class="bi bi-cart3"></i>
+                            {% if cart_count > 0 %}
+                            <span class="badge rounded-pill cart-badge">{{ cart_count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i></a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="bi bi-person"></i> Login</a></li>
+                    <li class="nav-item"><a class="btn btn-teal rounded-pill px-3" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- SEARCH BAR -->
+<div class="search-bar">
+    <div class="container">
+        <form method="get" action="{% url 'listing_list' %}" class="d-flex">
+            <input class="form-control" type="search" name="search" placeholder="Search for items, location, price range..." value="{{ request.GET.search }}">
+            <button class="btn-search" type="submit"><i class="bi bi-search"></i> Search</button>
+        </form>
+    </div>
+</div>
+
+<!-- FLASH MESSAGES -->
+{% if messages %}
+<div class="messages-container">
+    {% for msg in messages %}
+    <div class="alert alert-{{ msg.tags|default:'info' }} alert-dismissible fade show shadow" role="alert">
+        {{ msg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- MAIN CONTENT -->
+<main class="py-4">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h6><i class="bi bi-recycle"></i> RE-OWNED</h6>
+                <p style="font-size:0.9rem;">Give your items a second life. Buy and sell pre-loved goods in your community.</p>
+            </div>
+            <div class="col-md-2">
+                <h6>Shop</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                   {% for cat in all_categories %}
+                     <li><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h6>Sell</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                    <li><a href="{% url 'create_listing' %}">Post a Listing</a></li>
+                    <li><a href="{% url 'seller_tips' %}">Seller Tips</a></li>
+                    <li><a href="{% url 'pricing_guide' %}">Pricing Guide</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h6>Account</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'profile' %}">My Profile</a></li>
+                    <li><a href="{% url 'order_list' %}">My Orders</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h6>Help</h6>
+                <ul class="list-unstyled" style="font-size:0.9rem;">
+                    <li><a href="{% url 'faq' %}">FAQ</a></li>
+                    <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                    <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr style="border-color:#333; margin: 30px 0 16px;">
+        <div class="text-center" style="font-size:0.85rem;">
+            © 2025 RE-OWNED. All rights reserved. &nbsp;|&nbsp; Give items a second life. 🌱
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+async function toggleWishlist(btn) {
+    const url = btn.dataset.url;
+    const csrf = btn.dataset.csrf;
+    const icon = btn.querySelector('i');
+
+    // Optimistic UI — เปลี่ยนทันที
+    const isSaved = btn.classList.contains('active');
+    btn.classList.toggle('active', !isSaved);
+    icon.className = isSaved ? 'bi bi-heart' : 'bi bi-heart-fill';
+    btn.disabled = true;
+
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrf,
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+        });
+        const data = await res.json();
+
+        // Sync กับ server
+        btn.classList.toggle('active', data.saved);
+        icon.className = data.saved ? 'bi bi-heart-fill' : 'bi bi-heart';
+        showToast(data.saved ? '❤️ Saved to Wishlist' : '🤍 Removed from Wishlist');
+    } catch (e) {
+        // Revert ถ้า error
+        btn.classList.toggle('active', isSaved);
+        icon.className = isSaved ? 'bi bi-heart-fill' : 'bi bi-heart';
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+function showToast(message) {
+    document.querySelectorAll('.wishlist-toast').forEach(t => t.remove());
+    const toast = document.createElement('div');
+    toast.className = 'wishlist-toast';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position:fixed; bottom:24px; right:24px;
+        background:#1a2a2a; color:#fff;
+        padding:12px 20px; border-radius:12px;
+        font-size:0.9rem; font-weight:600;
+        z-index:9999; box-shadow:0 4px 16px rgba(0,0,0,0.2);
+        animation:slideUp 0.3s ease;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+}
+</script>
+
+<style>
+@keyframes slideUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+</style>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

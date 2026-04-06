@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}RE-OWNED — Buy & Sell Pre-Loved Items{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- FEATURED LISTINGS -->
+    <div class="section-header mt-2">
+        <span class="section-title">⭐ Featured Listings</span>
+        <a href="{% url 'listing_list' %}" class="see-all">See All →</a>
+    </div>
+    <div class="row g-3 mb-5">
+        {% for listing in featured %}
+        <div class="col-6 col-md-4 col-lg-3">
+            {% include 'partials/listing_card.html' with listing=listing %}
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted py-4">No featured listings yet.</div>
+        {% endfor %}
+    </div>
+
+    <!-- CATEGORIES + HERO BANNER -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-8">
+            <div class="section-header">
+                <span class="section-title">🗂 Shop by Category</span>
+                <a href="{% url 'listing_list' %}" class="see-all">See All →</a>
+            </div>
+            <div class="row g-3">
+                {% for cat in categories %}
+                <div class="col-6 col-md-3">
+                    <a href="{{ cat.get_absolute_url }}" class="text-decoration-none">
+                        <div class="category-card card h-100">
+                            {% if cat.image %}
+                            <img src="{{ cat.image.url }}" class="card-img-top" style="height:100px; object-fit:cover;" alt="{{ cat.name }}">
+                            {% else %}
+                            <div class="cat-icon"><i class="bi bi-{{ cat.icon|default:'tag' }}"></i></div>
+                            {% endif %}
+                            <div class="card-body">{{ cat.name }}</div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4 d-flex flex-column gap-3">
+            <div class="hero-banner flex-grow-1">
+                <h2>GIVE YOUR ITEMS<br>A SECOND LIFE!</h2>
+                <p class="mb-3">Turn your unused items into cash today.</p>
+                <a href="{% url 'create_listing' %}" class="btn btn-orange rounded-pill px-4 py-2 fw-bold">
+                    Start Selling Now.
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- LATEST LISTINGS -->
+    <div class="section-header">
+        <span class="section-title">🆕 Latest Listings</span>
+        <a href="{% url 'listing_list' %}" class="see-all">See All →</a>
+    </div>
+    <div class="row g-3">
+        {% for listing in latest %}
+        <div class="col-6 col-md-4 col-lg-3">
+            {% include 'partials/listing_card.html' with listing=listing %}
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted py-4">No listings yet. Be the first to sell!</div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

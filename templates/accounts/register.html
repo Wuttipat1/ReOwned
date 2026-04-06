@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Register — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container" style="max-width:500px; margin-top:40px;">
+    <div class="card border-0 shadow rounded-4 p-4">
+        <h3 class="fw-bold text-center mb-4" style="color:var(--teal);">Create Account</h3>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label fw-semibold">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-teal w-100 rounded-pill py-2 fw-bold">Create Account</button>
+        </form>
+        <p class="text-center mt-3 mb-0">Already have an account? <a href="{% url 'login' %}" style="color:var(--teal);">Login</a></p>
+    </div>
+</div>
+{% endblock %}

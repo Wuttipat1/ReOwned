@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Order #{{ order.pk }} — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container" style="max-width:650px;">
+    <h4 class="fw-bold mb-4">Order #{{ order.pk }}</h4>
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <div class="d-flex justify-content-between mb-3">
+            <div>
+                <small class="text-muted">Status</small>
+                <div><span class="badge bg-{% if order.status == 'delivered' %}success{% elif order.status == 'cancelled' %}danger{% else %}warning text-dark{% endif %} rounded-pill">{{ order.get_status_display }}</span></div>
+            </div>
+            <div class="text-end">
+                <small class="text-muted">Placed on</small>
+                <div>{{ order.created_at|date:"d M Y, H:i" }}</div>
+            </div>
+        </div>
+        <h6 class="fw-bold mb-2">Items</h6>
+        {% for item in order.items.all %}
+        <div class="d-flex justify-content-between py-2 border-bottom">
+            <span>{{ item.title }} <span class="text-muted">x{{ item.quantity }}</span></span>
+            <span>฿{{ item.subtotal }}</span>
+        </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between fw-bold mt-3">
+            <span>Total</span>
+            <span style="color:var(--teal); font-size:1.1rem;">฿{{ order.total_amount }}</span>
+        </div>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4">
+        <h6 class="fw-bold mb-2">Shipping Address</h6>
+        <p class="text-muted mb-0">{{ order.shipping_address }}</p>
+    </div>
+</div>
+{% endblock %}

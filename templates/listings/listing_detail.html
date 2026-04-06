@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}{{ listing.title }} — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none" style="color:var(--teal)">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ listing.category.get_absolute_url }}" class="text-decoration-none" style="color:var(--teal)">{{ listing.category.name }}</a></li>
+            <li class="breadcrumb-item active">{{ listing.title }}</li>
+        </ol>
+    </nav>
+    <div class="row g-4">
+        <!-- IMAGES -->
+        <div class="col-md-6">
+            {% if listing.main_image %}
+            <img src="{{ listing.main_image.url }}" class="img-fluid rounded-3 w-100" style="max-height:450px; object-fit:cover;" alt="{{ listing.title }}">
+            {% else %}
+            <div class="bg-light rounded-3 d-flex align-items-center justify-content-center" style="height:400px;">
+                <i class="bi bi-image text-muted" style="font-size:5rem;"></i>
+            </div>
+            {% endif %}
+            <div class="row g-2 mt-2">
+                {% for img in listing.images.all %}
+                <div class="col-3">
+                    <img src="{{ img.image.url }}" class="img-fluid rounded-2" style="height:80px; object-fit:cover; cursor:pointer; border:2px solid #eee;" alt="">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- DETAILS -->
+        <div class="col-md-6">
+            <h2 class="fw-bold">{{ listing.title }}</h2>
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span class="badge bg-light text-dark border">{{ listing.get_condition_display }}</span>
+                <span class="badge bg-light text-dark border">{{ listing.category.name }}</span>
+                {% if listing.brand %}<span class="badge bg-light text-dark border">{{ listing.brand }}</span>{% endif %}
+            </div>
+            <div class="mb-4" style="font-size:2rem; font-weight:900; color:var(--teal);">฿{{ listing.price }}</div>
+            <p class="text-muted">{{ listing.description }}</p>
+            {% if listing.location %}
+            <p><i class="bi bi-geo-alt text-muted"></i> {{ listing.location }}</p>
+            {% endif %}
+            <div class="d-flex gap-2 mb-4 flex-wrap">
+                <a href="{% url 'add_to_cart' listing.pk %}" class="btn btn-teal rounded-pill px-4">
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                </a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'toggle_wishlist' listing.pk %}" class="btn btn-outline-danger rounded-pill">
+                    <i class="bi bi-heart{% if is_wishlisted %}-fill{% endif %}"></i>
+                    {% if is_wishlisted %}Saved{% else %}Save{% endif %}
+                </a>
+                {% endif %}
+            </div>
+            <!-- SELLER INFO -->
+            <div class="card border-0 bg-light rounded-3 p-3">
+                <div class="d-flex align-items-center gap-3">
+                    <i class="bi bi-person-circle" style="font-size:2.5rem; color:var(--teal);"></i>
+                    <div>
+                        <div class="fw-bold">{{ listing.seller.full_name }}</div>
+                        <div class="text-muted" style="font-size:0.85rem;">
+                            ⭐ {{ listing.seller.rating }} · {{ listing.seller.total_sales }} sales
+                        </div>
+                    </div>
+                    <div class="ms-auto d-flex gap-2">
+                        <a href="{% url 'seller_profile' listing.seller.pk %}" class="btn btn-sm btn-outline-secondary rounded-pill">View Profile</a>
+                        {% if user.is_authenticated and user != listing.seller %}
+                        <a href="{% url 'start_conversation' listing.pk %}" class="btn btn-sm btn-teal rounded-pill"><i class="bi bi-chat-dots"></i> Contact Seller</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if user == listing.seller %}
+            <div class="d-flex gap-2 mt-3">
+                <a href="{% url 'edit_listing' listing.pk %}" class="btn btn-sm btn-outline-secondary rounded-pill">Edit</a>
+                <a href="{% url 'delete_listing' listing.pk %}" class="btn btn-sm btn-outline-danger rounded-pill">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- RELATED -->
+    {% if related %}
+    <div class="mt-5">
+        <div class="section-header">
+            <span class="section-title">You might also like</span>
+        </div>
+        <div class="row g-3">
+            {% for item in related %}
+            <div class="col-6 col-md-3">
+                {% include 'partials/listing_card.html' with listing=item %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

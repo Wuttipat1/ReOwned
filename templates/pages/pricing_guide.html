@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Pricing Guide — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container" style="max-width:750px;">
+    <h3 class="fw-bold mb-2">💸 Pricing Guide</h3>
+    <p class="text-muted mb-4">แนวทางการตั้งราคาสินค้ามือสองให้ขายได้</p>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+        <h5 class="fw-bold mb-3">แนวทางตั้งราคาตาม Condition</h5>
+        <table class="table table-borderless mb-1">
+            <thead class="table-light">
+                <tr>
+                    <th>Condition</th>
+                    <th>ราคาแนะนำ</th>
+                    <th>คำอธิบาย</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge-condition">Like New</span></td>
+                    <td class="fw-bold" style="color:var(--teal);">70–80%</td>
+                    <td class="text-muted">แทบไม่ได้ใช้ ไม่มีตำหนิ</td>
+                </tr>
+                <tr>
+                    <td><span class="badge-condition">Good</span></td>
+                    <td class="fw-bold" style="color:var(--teal);">50–65%</td>
+                    <td class="text-muted">ใช้งานปกติ มีรอยเล็กน้อย</td>
+                </tr>
+                <tr>
+                    <td><span class="badge-condition">Fair</span></td>
+                    <td class="fw-bold" style="color:var(--teal);">30–45%</td>
+                    <td class="text-muted">มีรอยชัดเจน แต่ยังใช้งานได้ดี</td>
+                </tr>
+                <tr>
+                    <td><span class="badge-condition">Poor</span></td>
+                    <td class="fw-bold" style="color:var(--teal);">10–25%</td>
+                    <td class="text-muted">มีตำหนิมาก ใช้งานได้บางส่วน</td>
+                </tr>
+            </tbody>
+        </table>
+        <small class="text-muted">* เปอร์เซ็นต์เทียบจากราคาสินค้าใหม่</small>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold mb-3">📦 ตัวอย่างตาม Category</h5>
+        <ul class="text-muted mb-0" style="line-height:2;">
+            <li><strong>Electronics</strong> — เสื่อมราคาเร็ว ตั้งไม่เกิน 60% ของราคาใหม่</li>
+            <li><strong>Clothing</strong> — ขึ้นอยู่กับ brand สินค้า luxury brand ตั้งสูงได้</li>
+            <li><strong>Furniture</strong> — ดูค่าขนส่งด้วย มักตั้งต่ำกว่า 50%</li>
+            <li><strong>Sports</strong> — ถ้าใช้น้อยราคาดีมาก โดยเฉพาะอุปกรณ์แพง</li>
+        </ul>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold mb-2">⚡ เคล็ดลับเพิ่มเติม</h5>
+        <ul class="text-muted mb-0" style="line-height:2;">
+            <li>ตั้งราคาเลขกลมๆ เช่น ฿199, ฿299 ดูน่าสนใจกว่า ฿200, ฿300</li>
+            <li>ถ้าไม่มีคนสนใจใน 1 สัปดาห์ ลองลดราคา 10–15%</li>
+            <li>ดูราคาสินค้าคล้ายกันในแพลตฟอร์มก่อนตั้งราคา</li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'create_listing' %}" class="btn btn-orange rounded-pill px-5 py-2 fw-bold">
+            เริ่มขายเลย →
+        </a>
+    </div>
+</div>
+{% endblock %}

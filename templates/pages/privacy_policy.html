@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Privacy Policy — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container" style="max-width:750px;">
+    <h3 class="fw-bold mb-2">🔒 Privacy Policy</h3>
+    <p class="text-muted mb-4">อัปเดตล่าสุด: มกราคม 2568</p>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">1. ข้อมูลที่เราเก็บ</h5>
+        <p class="text-muted mb-0">เราเก็บข้อมูลที่คุณให้ไว้เมื่อสมัครสมาชิก ได้แก่ ชื่อ อีเมล และข้อมูลโปรไฟล์ รวมถึงข้อมูลการใช้งานเว็บไซต์เพื่อปรับปรุงบริการ</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">2. การใช้ข้อมูล</h5>
+        <p class="text-muted mb-0">ข้อมูลของคุณจะถูกใช้เพื่อให้บริการแพลตฟอร์ม ดำเนินการคำสั่งซื้อ และส่งการแจ้งเตือนที่เกี่ยวข้องกับบัญชีของคุณเท่านั้น</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">3. การแบ่งปันข้อมูล</h5>
+        <p class="text-muted mb-0">เราไม่ขายหรือแบ่งปันข้อมูลส่วนตัวของคุณให้กับบุคคลที่สาม ยกเว้นในกรณีที่จำเป็นตามกฎหมาย</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">4. ความปลอดภัยของข้อมูล</h5>
+        <p class="text-muted mb-0">เราใช้มาตรการรักษาความปลอดภัยมาตรฐานอุตสาหกรรมเพื่อปกป้องข้อมูลของคุณ รวมถึงการเข้ารหัสรหัสผ่านและการใช้ HTTPS</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">5. Cookies</h5>
+        <p class="text-muted mb-0">เว็บไซต์ใช้ cookies เพื่อจดจำ session การเข้าสู่ระบบและการตั้งค่าของคุณ คุณสามารถปิด cookies ได้ในการตั้งค่าเบราว์เซอร์ แต่อาจส่งผลต่อการใช้งาน</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">6. สิทธิ์ของคุณ</h5>
+        <p class="text-muted mb-0">คุณมีสิทธิ์ขอดู แก้ไข หรือลบข้อมูลส่วนตัวของคุณได้ทุกเมื่อ โดยติดต่อผ่านหน้า Contact Us</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">7. การเปลี่ยนแปลง Policy</h5>
+        <p class="text-muted mb-0">เราอาจอัปเดต Privacy Policy นี้เป็นครั้งคราว การเปลี่ยนแปลงสำคัญจะแจ้งให้ทราบผ่านอีเมลหรือประกาศในเว็บไซต์</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <p class="text-muted small">มีคำถามเกี่ยวกับ Privacy Policy?</p>
+        <a href="{% url 'contact' %}" class="btn btn-teal rounded-pill px-4">ติดต่อเรา</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ seller.full_name }} — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 d-flex flex-row align-items-center gap-4">
+        {% if seller.avatar %}
+        <img src="{{ seller.avatar.url }}" class="rounded-circle" style="width:80px; height:80px; object-fit:cover;" alt="">
+        {% else %}
+        <i class="bi bi-person-circle" style="font-size:4rem; color:var(--teal);"></i>
+        {% endif %}
+        <div>
+            <h4 class="fw-bold mb-0">{{ seller.full_name }}</h4>
+            <p class="text-muted mb-1">@{{ seller.username }}</p>
+            <p class="mb-0">⭐ {{ seller.rating }} · {{ seller.total_sales }} sales · {{ listings.count }} active listings</p>
+        </div>
+    </div>
+    <div class="row g-3">
+        {% for listing in listings %}
+        <div class="col-6 col-md-3">
+            {% include 'partials/listing_card.html' with listing=listing %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

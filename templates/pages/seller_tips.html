@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Seller Tips — RE-OWNED{% endblock %}
+{% block content %}
+<div class="container" style="max-width:750px;">
+    <h3 class="fw-bold mb-2">💡 Seller Tips</h3>
+    <p class="text-muted mb-4">เคล็ดลับเพื่อให้ขายสินค้าได้เร็วขึ้น</p>
+
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">📸 ถ่ายรูปให้ดูดี</h5>
+        <p class="text-muted mb-0">ถ่ายในที่แสงสว่าง ถ่ายหลายมุม ทั้งด้านหน้า ด้านหลัง และจุดที่มีตำหนิ ยิ่งรูปชัดยิ่งขายได้ง่าย</p>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">✍️ เขียน description ให้ครบ</h5>
+        <p class="text-muted mb-0">ระบุ brand, size, condition และเหตุผลที่ขาย จะช่วยให้คนตัดสินใจซื้อได้เร็วขึ้น</p>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">💰 ตั้งราคาให้เหมาะสม</h5>
+        <p class="text-muted mb-0">ดูราคาสินค้าใหม่แล้วลด 30–50% ขึ้นอยู่กับ condition ดูแนวทางเพิ่มเติมได้ที่ <a href="{% url 'pricing_guide' %}" style="color:var(--teal);">Pricing Guide</a></p>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">🚚 ตอบแชทเร็ว</h5>
+        <p class="text-muted mb-0">ผู้ขายที่ตอบเร็วมีโอกาสปิดการขายสูงกว่ามาก พยายามตอบภายใน 1 ชั่วโมงครับ</p>
+    </div>
+    <div class="card border-0 shadow-sm rounded-4 p-4 mb-3">
+        <h5 class="fw-bold">🏷️ ใส่ brand และ category ให้ถูกต้อง</h5>
+        <p class="text-muted mb-0">สินค้าที่ระบุ brand ชัดเจนจะถูกค้นเจอได้ง่ายกว่า และได้รับความสนใจจากผู้ซื้อที่ตรงกลุ่มมากขึ้น</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'create_listing' %}" class="btn btn-orange rounded-pill px-5 py-2 fw-bold">
+            เริ่มขายเลย →
+        </a>
+    </div>
+</div>
+{% endblock %}
